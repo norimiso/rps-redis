@@ -1,5 +1,5 @@
 Rps::Application.routes.draw do
-  root to: 'users#index', as: :index
+  root to: 'users#index'
 
   post "users/create"   => "users#create",  as: :create_user
 
@@ -10,4 +10,6 @@ Rps::Application.routes.draw do
 
   get  "musics"         => "musics#index",  as: :musics
   post "musics/update"  => "musics#update", as: :update_musics
+
+  get "debug" => "musics#update"
 end

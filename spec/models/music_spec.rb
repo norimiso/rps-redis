@@ -22,4 +22,12 @@ describe Music do
       $redis.hget("music_data:冥:SPA", :notes).should == "2000"
     end
   end
+
+  describe ".where" do
+    it "should return music data array" do
+      $redis.sadd("SP:12", "冥:SPA")
+      $redis.hset("music_data:冥:SPA", :notes, "2000")
+      Music.where(playtype: "SP", level: "12").first[:notes].should == "2000"
+    end
+  end
 end
