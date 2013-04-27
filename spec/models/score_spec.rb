@@ -7,25 +7,29 @@ describe Score do
     @redis.ping
   end
 
-  describe ".update" do
+  describe "#update" do
     before do
       @redis.flushall
     end
 
     context "when score doesn't exist" do
       it "should create score" do
-        Score.update(iidxid: "1111-1111", music: "冥", difficulty: "SPA", exscore: "3000", bp: "10", clear: "EH")
+        @score = Score.new(iidxid: "1111-1111", music: "冥", difficulty: "SPA")
+        @score.update(exscore: "3000", bp: "10", clear: "EH")
         @redis.hget("score:1111-1111:冥:SPA", :exscore).should == "3000"
-        @redis.hget("score:1111-1111:冥:SPA", :bp).should == "10"
-        @redis.hget("score:1111-1111:冥:SPA", :clear).should == "10"
+        @redis.hget("score:1111-1111:冥:SPA", :bp     ).should == "10"
+        @redis.hget("score:1111-1111:冥:SPA", :clear  ).should == "EH"
       end
     end
 
     context "when score exists" do
       it "should update score" do
-        @redis.set("score:1111-1111:冥:SPA", "2000")
-        Score.update(iidxid: "1111-1111", music: "冥", difficulty: "SPA", value: "4000")
-        @redis.get("score:1111-1111:冥:SPA").should == "4000"
+        @redis.hset("score:1111-1111:冥:SPA", :exscore, "2000")
+        @redis.hset("score:1111-1111:冥:SPA", :rate   , "50.0")
+        @score = Score.new(iidxid: "1111-1111", music: "冥", difficulty: "SPA")
+        @score.update(exscore: "4000", rate: "100.0")
+        @redis.hget("score:1111-1111:冥:SPA", :exscore).should == "4000"
+        @redis.hget("score:1111-1111:冥:SPA", :rate   ).should == "100.0"
       end
     end
   end
