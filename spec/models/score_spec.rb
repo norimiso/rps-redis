@@ -14,9 +14,10 @@ describe Score do
 
     context "when score doesn't exist" do
       it "should create score" do
-        @redis.get("score:1111-1111:冥:SPA").should == nil
-        Score.update(iidxid: "1111-1111", music: "冥", difficulty: "SPA", value: "4000")
-        @redis.get("score:1111-1111:冥:SPA").should == "4000"
+        Score.update(iidxid: "1111-1111", music: "冥", difficulty: "SPA", exscore: "3000", bp: "10", clear: "EH")
+        @redis.hget("score:1111-1111:冥:SPA", :exscore).should == "3000"
+        @redis.hget("score:1111-1111:冥:SPA", :bp).should == "10"
+        @redis.hget("score:1111-1111:冥:SPA", :clear).should == "10"
       end
     end
 
