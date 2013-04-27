@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   before(:all) do
-    @redis = Redis.new(:host => 'localhost', :port => 6379);
+    @redis = Redis.new(host: 'localhost', port: 6379);
     @redis.ping
   end
 

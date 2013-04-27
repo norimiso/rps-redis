@@ -1,14 +1,20 @@
+# -*- coding: utf-8 -*-
 class Music
   def self.add(args = {})
-    return unless args[:level] && args[:title] && args[:difficulty] && args[:notes]
-    $redis.sadd(level_set_key(args[:level].first), )
+    return unless args[:level] && args[:title] && args[:playtype] && args[:difficulty] && args[:notes]
+    add_to_level_set(args)
+    update_music_data(args)
   end
 
-  def add_to_level_set(level, title)
-    $redis.sadd(level_set_key(level), "#{title}:#{difficulty}")
+  def self.add_to_level_set(args)
+    # SADD SP:12 冥:SPA
+    $redis.sadd("#{args[:playtype]}:#{args[:level]}", "#{args[:title]}:#{args[:playtype]+args[:difficulty]}")
   end
 
-  def level_set_key(level)
-    "music:level:#{level}"
+  def self.update_music_data(args)
+    hash_key = "music_data:#{args[:title]}:#{args[:playtype]+args[:difficulty]}" # music_data:冥:SPA
+    [:title, :level, :playtype, :difficulty, :notes].each do |symbol|
+      $redis.hset(hash_key, symbol, args[symbol])
+    end
   end
 end

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Score
   def initialize(args = {})
     raise ArgumentError, "invalid argument" unless args[:iidxid] && args[:music] && args[:playtype] && args[:difficulty]
@@ -14,6 +15,7 @@ class Score
   end
 
   def score_hash_key
-    "score:#{@iidxid}:#{@music}:#{@playtype}:#{@difficulty}"
+    # score:1111-1111:冥:SPA
+    "score:#{@iidxid}:#{@music}:#{@playtype + @difficulty}"
   end
 end

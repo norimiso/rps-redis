@@ -1,32 +1,25 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe Music do
   before(:all) do
-    @redis = Redis.new(:host => 'localhost', :port => 6379);
+    @redis = Redis.new(host: 'localhost', port: 6379);
     @redis.ping
   end
 
-  describe ".update" do
-    before do
-      @redis.flushall
+  before do
+    @redis.flushall
+  end
+
+  describe ".add" do
+    it "should add music to level set" do
+      Music.add(level: "12", title: "冥", playtype: "SP", difficulty: "A", notes: "2000")
+      $redis.smembers("SP:12").include?("冥:SPA").should == true
     end
 
-    context "user not already added" do
-      it "should create user" do
-        @redis.smembers("user").should_not include "1111-1111"
-        User.create(iidxid: "1111-1111", djname: "test")
-        @redis.smembers("user").should include "1111-1111"
-        @redis.get("user:1111-1111").should == "test"
-      end
-    end
-
-    context "user already added" do
-      it "should update his djname" do
-        @redis.sadd("user", "1111-1111")
-        @redis.set("user:1111-1111", "test1")
-        User.create(iidxid: "1111-1111", djname: "test2")
-        @redis.get("user:1111-1111").should == "test2"
-      end
+    it "should update music data" do
+      Music.add(level: "12", title: "冥", playtype: "SP", difficulty: "A", notes: "2000")
+      $redis.hget("music_data:冥:SPA", :notes).should == "2000"
     end
   end
 end
