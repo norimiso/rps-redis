@@ -40,6 +40,15 @@
             </tr>
           </thead>
           <tbody>
+            <% @musics[playtype][level].each do |music| %>
+            <tr>
+              <% [:difficulty, :title, :notes].each do |symbol| %>
+              <td>
+                <%= music[symbol] %>
+              </td>
+              <% end %>
+            </tr>
+            <% end %>
           </tbody>
         </table>
         <!-- End of table -->

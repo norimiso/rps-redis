@@ -27,7 +27,7 @@ describe MusicsController do
     end
 
     it "should update music data" do
-      @redis.smembers("SP:12").include?("冥").should == true
+      @redis.smembers("SP:12").include?("冥:SPA").should == true
     end
   end
 end
