@@ -30,4 +30,12 @@ describe Music do
       Music.where(playtype: "SP", level: "12").first[:notes].should == "2000"
     end
   end
+
+  describe ".find" do
+    it "should return music data hash" do
+      $redis.sadd("SP:12", "冥:SPA")
+      $redis.hset("music_data:冥:SPA", :notes, "2000")
+      Music.find(title: "冥", playtype: "SP", difficulty: "A").should be_a_kind_of Hash
+    end
+  end
 end

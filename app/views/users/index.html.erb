@@ -2,7 +2,7 @@
 
 <p>
   RPSへようこそ！<br>
-  beatmaniaIIDX SPのスコア力を総合的に判断し、数値化するサービスを提供しています。<br>
+  beatmaniaIIDX tricoroのスコア力を総合的に判断し、数値化するサービスを提供しています。<br>
   ご利用になるためには以下のFirefox用の拡張をインストールしてください。<br>
   <br>
   <a href="#">Firefox用スコア送信ツール</a><br>
@@ -32,9 +32,13 @@
       <tbody>
         <% @users.each do |user| %>
         <tr>
-          <% [:iidxid, :djname].each do |symbol| %>
+          <% [:djname, :iidxid].each do |symbol| %>
           <td>
-            <%= user[symbol] %>
+            <% if symbol == :djname %>
+              <a href ="<%= root_url + 'scores/' + user[:iidxid] %>"><%= user[symbol] %></a>
+            <% else %>
+              <%= user[symbol] %>
+            <% end %>
           </td>
           <% end %>
         </tr>

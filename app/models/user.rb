@@ -6,6 +6,7 @@ class User
       [:iidxid, :djname].each do |symbol|
         hash[symbol] = $redis.hget("user:#{user}", symbol)
       end
+      hash
     end
   end
 
@@ -17,5 +18,15 @@ class User
     args.each do |arg|
       $redis.hset("user:#{args[:iidxid]}", arg.first, arg.second)
     end
+  end
+
+  def self.find(args = {})
+    return unless args[:iidxid]
+    return unless $redis.smembers("user").include?(args[:iidxid])
+    hash = Hash.new
+    [:iidxid, :djname].each do |symbol|
+      hash[symbol] = $redis.hget("user:#{args[:iidxid]}", symbol)
+    end
+    hash
   end
 end

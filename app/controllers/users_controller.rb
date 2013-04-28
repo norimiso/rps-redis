@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def index
-    User.create(iidxid: "1234-1234", djname: "a")
+    User.create(iidxid: "1111-1111", djname: "IKSTRM")
+    ;
     @users = User.all
   end
 
