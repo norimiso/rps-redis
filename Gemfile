@@ -6,17 +6,17 @@ gem 'rails', '4.0.0.beta1'
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 4.0.0.beta1'
-  gem 'coffee-rails', '~> 4.0.0.beta1'
+#group :assets do
+gem 'sass-rails',   '~> 4.0.0.beta1'
+gem 'coffee-rails', '~> 4.0.0.beta1'
 
-  gem 'therubyracer'
-  gem 'less-rails'
-  gem 'less-rails-bootstrap'
-  gem 'less-rails-bootswatch'
+gem 'therubyracer'
+gem 'less-rails'
+gem 'less-rails-bootstrap'
+gem 'less-rails-bootswatch'
 
-  gem 'uglifier', '>= 1.0.3'
-end
+gem 'uglifier', '>= 1.0.3'
+#end
 
 gem 'jquery-rails'
 
