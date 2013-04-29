@@ -16,3 +16,5 @@
 /tmp
 /config/initializers/secret_token.rb
 *.rdb
+Capfile
+config/deploy.rb
