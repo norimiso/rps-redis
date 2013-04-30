@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 class ScoresController < ApplicationController
   def show
-    User.create(iidxid: "1111-1111", djname: "IKSTRM")
-    @score = Score.new(iidxid: "1111-1111", title: "冥", playtype: "SP", difficulty: "A")
-    @score.update(exscore: "2344", bp: "10", clear: "EH")
-    ;
     @user = User.find(iidxid: params[:iidxid])
     redirect_to root_url if @user == nil
     @musics = Hash.new

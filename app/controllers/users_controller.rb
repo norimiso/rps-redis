@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
   def index
-    User.create(iidxid: "1111-1111", djname: "IKSTRM")
-    ;
     @users = User.all
   end
 
