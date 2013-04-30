@@ -1,10 +1,10 @@
 class User
   def self.all
-    users = $redis.smembers("user")
+    users = $redis.smembers("users")
     users.map do |user|
       hash = Hash.new
       [:iidxid, :djname].each do |symbol|
-        hash[symbol] = $redis.hget("user:#{user}", symbol)
+        hash[symbol] = $redis.hget("users:#{user}", symbol)
       end
       hash
     end
@@ -14,18 +14,18 @@ class User
     return unless args[:iidxid]
     return unless args[:djname]
 
-    $redis.sadd("user", args[:iidxid])
+    $redis.sadd("users", args[:iidxid])
     args.each do |arg|
-      $redis.hset("user:#{args[:iidxid]}", arg.first, arg.second)
+      $redis.hset("users:#{args[:iidxid]}", arg.first, arg.second)
     end
   end
 
   def self.find(args = {})
     return unless args[:iidxid]
-    return unless $redis.smembers("user").include?(args[:iidxid])
+    return unless $redis.smembers("users").include?(args[:iidxid])
     hash = Hash.new
     [:iidxid, :djname].each do |symbol|
-      hash[symbol] = $redis.hget("user:#{args[:iidxid]}", symbol)
+      hash[symbol] = $redis.hget("users:#{args[:iidxid]}", symbol)
     end
     hash
   end

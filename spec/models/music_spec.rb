@@ -19,14 +19,14 @@ describe Music do
 
     it "should update music data" do
       Music.add(level: "12", title: "冥", playtype: "SP", difficulty: "A", notes: "2000")
-      $redis.hget("music_data:冥:SPA", :notes).should == "2000"
+      $redis.hget("music_datas:冥:SPA", :notes).should == "2000"
     end
   end
 
   describe ".where" do
     it "should return music data array" do
       $redis.sadd("SP:12", "冥:SPA")
-      $redis.hset("music_data:冥:SPA", :notes, "2000")
+      $redis.hset("music_datas:冥:SPA", :notes, "2000")
       Music.where(playtype: "SP", level: "12").first[:notes].should == "2000"
     end
   end
@@ -34,7 +34,7 @@ describe Music do
   describe ".find" do
     it "should return music data hash" do
       $redis.sadd("SP:12", "冥:SPA")
-      $redis.hset("music_data:冥:SPA", :notes, "2000")
+      $redis.hset("music_datas:冥:SPA", :notes, "2000")
       Music.find(title: "冥", playtype: "SP", difficulty: "A").should be_a_kind_of Hash
     end
   end

@@ -27,8 +27,8 @@ describe UsersController do
     end
 
     it "should create user" do
-      @redis.smembers("user").include?("1111-1111").should == true
-      @redis.hget("user:1111-1111", :djname).should == "test"
+      @redis.smembers("users").include?("1111-1111").should == true
+      @redis.hget("users:1111-1111", :djname).should == "test"
     end
   end
 end

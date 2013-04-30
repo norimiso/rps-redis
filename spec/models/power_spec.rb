@@ -14,8 +14,8 @@ describe Power do
   describe ".update" do
     it "should save power value" do
       Power.update(iidxid: "1111-1111", sp12s: "1000", sp11c: "2000")
-      @redis.get("power:1111-1111:sp12s").should == "1000"
-      @redis.get("power:1111-1111:sp11c").should == "2000"
+      @redis.get("powers:1111-1111:sp12s").should == "1000"
+      @redis.get("powers:1111-1111:sp11c").should == "2000"
     end
   end
 

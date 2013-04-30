@@ -27,7 +27,7 @@ class Score
 
   def score_hash_key
     if @iidxid && @title && @playtype && @difficulty
-      "score:#{@iidxid}:#{@title}:#{@playtype + @difficulty}" # score:1111-1111:冥:SPA
+      "scores:#{@iidxid}:#{@title}:#{@playtype + @difficulty}" # score:1111-1111:冥:SPA
     else
       "dummy"
     end

@@ -20,7 +20,7 @@ class Music
     array.map do |title|
       hash = Hash.new
       music_data_attributes.each do |symbol|
-        hash[symbol] = $redis.hget("music_data:" + title, symbol)
+        hash[symbol] = $redis.hget("music_datas:" + title, symbol)
       end
       hash
     end
@@ -49,6 +49,6 @@ class Music
     music_args_attributes.each do |symbol|
       return "dummy" unless args[symbol]
     end
-    "music_data:#{args[:title]}:#{args[:playtype]+args[:difficulty]}" # music_data:冥:SPA
+    "music_datas:#{args[:title]}:#{args[:playtype]+args[:difficulty]}" # music_data:冥:SPA
   end
 end

@@ -4,8 +4,8 @@ class Power
     args.each do |arg|
       next if arg.first == :iidxid
       if arg.second
-        $redis.set("power:#{args[:iidxid]}:#{arg.first}", arg.second)
-        $redis.sadd("power:#{args[:iidxid]}", arg.first)
+        $redis.set("powers:#{args[:iidxid]}:#{arg.first}", arg.second)
+        $redis.sadd("powers:#{args[:iidxid]}", arg.first)
       end
     end
   end
@@ -13,9 +13,9 @@ class Power
   def self.find(args = {})
     return unless args[:iidxid]
     hash = Hash.new
-    powers = $redis.smembers("power:#{args[:iidxid]}")
+    powers = $redis.smembers("powers:#{args[:iidxid]}")
     powers.each do |power|
-      hash[power.to_sym] = $redis.get("power:#{args[:iidxid]}:#{power}")
+      hash[power.to_sym] = $redis.get("powers:#{args[:iidxid]}:#{power}")
     end
     hash
   end
