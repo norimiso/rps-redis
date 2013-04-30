@@ -12,7 +12,6 @@ describe Score do
   end
 
   describe "#update" do
-
     context "when score doesn't exist" do
       it "should create score" do
         @score = Score.new(iidxid: "1111-1111", title: "冥", playtype: "SP", difficulty: "A")
