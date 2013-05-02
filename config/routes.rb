@@ -11,5 +11,7 @@ Rps::Application.routes.draw do
   get  "musics"         => "musics#index",  as: :musics
   post "musics/update"  => "musics#update", as: :update_musics
 
+  # temp
   get "debug" => "musics#update"
+  get "powers/update_all" => "powers#update_all"
 end

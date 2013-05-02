@@ -5,7 +5,7 @@
   beatmaniaIIDX tricoroのスコア力を総合的に判断し、数値化するサービスを提供しています。<br>
   ご利用になるためには以下のFirefox用の拡張をインストールしてください。<br>
   <br>
-  <a href="#">Firefox用スコア送信ツール</a><br>
+  <a href="https://github.com/ikstrm/rps-firefox/blob/master/IIDXScoreSenderForRPS.xpi?raw=true">Firefox用スコア送信ツール</a><br>
   <br>
   e-amusement GATEにログインしてtricoroのページ上部に表示されるボタンからスコアを送信してください。(課金が必要です。)<br>
   なお、本サービスおよびスコア送信ツールを利用して発生したいかなる損害も当方は責任を負わないものとします。<br>
@@ -20,6 +20,8 @@
 </ul>
 <div class="tab-content">
   <% ["SP", "DP"].each do |playtype| %>
+  <% total_sym = (playtype.downcase + "total").to_sym %>
+  <% @users.sort! { |a, b| Power.find(iidxid: a[:iidxid])[total_sym] <=> Power.find(iidxid: a[:iidxid])[total_sym] } %>
   <div class="<%= tab_class(playtype) %>" id="<%= playtype %>">
     <!-- Start of table -->
     <table class="table table-bordered table-striped">
@@ -30,6 +32,7 @@
           <% (8..12).each do |level| %>
             <th>☆<%= level %></th>
           <% end %>
+          <th>総合</th>
         </tr>
       </thead>
       <tbody>
@@ -48,10 +51,33 @@
           <% power = Power.find(iidxid: user[:iidxid]) %>
           <% (8..12).each do |level| %>
             <td>
-              <% symbol = (playtype.downcase + level.to_s + "s").to_sym %>
-              <%= power[symbol] %>
+              <% score_sym = (playtype.downcase + level.to_s + "score").to_sym %>
+              <% power[score_sym] ||= 0 %>
+              <%= "%.2f" % power[score_sym] %>
+              <br>
+              <% if (8..10).include?(level) %>
+                <% title_sym = (playtype.downcase + level.to_s + "title").to_sym %>
+                <%= power[title_sym] %>
+              <% else %>
+                <font color="#223399">
+                  <% clear_sym = (playtype.downcase + level.to_s + "clear").to_sym %>
+                  <% power[clear_sym] ||= 0 %>
+                  <%= power[clear_sym] %>
+                </font>
+              <% end %>
             </td>
           <% end %>
+          <td>
+            <% total_sym = (playtype.downcase + "total").to_sym %>
+            <% power[total_sym] ||= 0 %>
+            <%= power[total_sym] %>
+            <br>
+            <font color="#223399">
+              <% clear_sym = (playtype.downcase + "cleartotal").to_sym %>
+              <% power[clear_sym] ||= 0 %>
+              <%= power[clear_sym] %>
+            </font>
+          </td>
         </tr>
         <% end %>
       </tbody>

@@ -9,7 +9,7 @@ class ScoresController < ApplicationController
       (1..12).each do |level|
         @musics[playtype][level] = Music.where(playtype: playtype, level: level)
           .map { |music| Score.where(iidxid: params[:iidxid], title: music[:title], playtype: playtype, difficulty: music[:difficulty]) }
-        @musics[playtype][level].sort! { |a, b| b[:exscore].to_i <=> a[:exscore].to_i }
+        @musics[playtype][level].sort! { |a, b| b[:rate].to_i <=> a[:rate].to_i }
       end
     end
   end
