@@ -25,5 +25,18 @@ class ScoresController < ApplicationController
   end
 
   def update_all_rate
+    @users = User.all
+    @users.each do |user|
+      ["SP", "DP"].each do |playtype|
+        (1..12).each do |level|
+          @musics = Music.where(playtype: playtype, level: level)
+          @musics.each do |music|
+            score = Score.new(iidxid: user[:iidxid], title: music[:title], playtype: playtype, difficulty: music[:difficulty])
+            score.update_rate(score)
+          end
+        end
+      end
+    end
+    @scores = Score
   end
 end

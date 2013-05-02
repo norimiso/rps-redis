@@ -14,4 +14,5 @@ Rps::Application.routes.draw do
   # temp
   get "debug" => "musics#update"
   get "powers/update_all" => "powers#update_all"
+  get "scores/update_all_rate" => "scores#update_all_rate"
 end
