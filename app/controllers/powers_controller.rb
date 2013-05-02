@@ -84,7 +84,7 @@ class PowersController < ApplicationController
       score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty])
       if max_rate < score[:rate].to_f
         title = music[:title]
-        max_rate = score[:rate]
+        max_rate = score[:rate].to_f
       end
     end
     base = case level
