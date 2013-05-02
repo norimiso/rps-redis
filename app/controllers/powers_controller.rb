@@ -52,8 +52,11 @@ class PowersController < ApplicationController
            when 12 then 180
            end
     fc_num = 0
+    fc_rate = 0
     exh_num = 0
+    exh_rate = 0
     h_num = 0
+    h_rate = 0
     bp_sum = 0
     score_num = 0
     bp_ave = 0
@@ -68,12 +71,17 @@ class PowersController < ApplicationController
       end
     end
 
-    bp_ave = bp_sum.to_f / score_num if score_num > 0
+    if score_num > 0
+      bp_ave = bp_sum.to_f / score_num
+      fc_rate = fc_num.to_f / score_num
+      exh_rate = exh_num.to_f / score_num
+      h_rate = h_num.to_f / score_num
+    end
     k = case level
         when 11 then 0.75 + 0.5**(0.95 + bp_ave / 5)
         when 12 then 0.75 + 0.5**(0.9 + bp_ave / 13)
         end
-    base_point = base * (fc_num + exh_num + h_num)**2 * 5**((fc_num + exh_num)**2) * 5**(fc_num**2)
+    base_point = base * (fc_rate + exh_rate + h_rate)**2 * 5**((fc_rate + exh_rate)**2) * 5**(fc_rate**2)
     base_point**k
   end
 

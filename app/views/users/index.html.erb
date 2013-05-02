@@ -20,8 +20,6 @@
 </ul>
 <div class="tab-content">
   <% ["SP", "DP"].each do |playtype| %>
-  <% total_sym = (playtype.downcase + "total").to_sym %>
-  <% @users.sort! { |a, b| Power.find(iidxid: a[:iidxid])[total_sym] <=> Power.find(iidxid: a[:iidxid])[total_sym] } %>
   <div class="<%= tab_class(playtype) %>" id="<%= playtype %>">
     <!-- Start of table -->
     <table class="table table-bordered table-striped">
@@ -62,7 +60,7 @@
                 <font color="#223399">
                   <% clear_sym = (playtype.downcase + level.to_s + "clear").to_sym %>
                   <% power[clear_sym] ||= 0 %>
-                  <%= power[clear_sym] %>
+                  <%= "%.2f" % power[clear_sym] %>
                 </font>
               <% end %>
             </td>
@@ -75,7 +73,7 @@
             <font color="#223399">
               <% clear_sym = (playtype.downcase + "cleartotal").to_sym %>
               <% power[clear_sym] ||= 0 %>
-              <%= power[clear_sym] %>
+              <%= "%.2f" % power[clear_sym] %>
             </font>
           </td>
         </tr>
