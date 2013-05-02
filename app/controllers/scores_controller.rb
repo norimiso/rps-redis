@@ -23,4 +23,7 @@ class ScoresController < ApplicationController
     @score.update(exscore: params["exscore"], bp: params["bp"], clear: params["clear"])
     render text: "update succeeded"
   end
+
+  def update_all_rate
+  end
 end

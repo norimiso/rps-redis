@@ -12,6 +12,20 @@ describe MusicsController do
     end
   end
 
+  describe "#textage_music_data" do
+    it "should get pink rose's notes" do
+      musics_controller = MusicsController.new
+      music_list = musics_controller.textage_music_list
+      music_list.each do |music|
+        if music[:title] == "Pink Rose"
+          music = musics_controller.textage_music_data(music)
+          music[:spa][:notes].should == "708"
+        end
+      end
+    end
+  end
+
+  # Temporary disable because this is too slow to test
   # describe "POST 'musics/update'" do
   #   before(:all) do
   #     @redis = Redis.new(host: 'localhost', port: 6379);
