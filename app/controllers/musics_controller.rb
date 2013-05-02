@@ -22,8 +22,6 @@ class MusicsController < ApplicationController
     music_list = textage_music_list
     music_list.each do |music|
       next if music[:version] == "0"
-      next if music[:id] == "scripted"
-      next if music[:id] == "tripping"
       music = textage_music_data(music)
       [:spn, :sph, :spa, :dpn, :dph, :dpa].each do |symbol|
         playtype = case symbol
@@ -54,10 +52,12 @@ class MusicsController < ApplicationController
 
   # Thanks for TexTage(http://textage.cc/)
   def textage_music_list
+    ignore_ids = ["pinkrose", "2tribe4k", "scripted", "tripping"]
     music_list = Array.new
     script = get("http://textage.cc/score/actbl.js")
     script.each_line do |line|
       if line =~ /'(.+)'\s+:\[(.+)\],/
+        next if ignore_ids.include?($1)
         numbers = $2.split(',')
         music_list += [{
             id: $1,
