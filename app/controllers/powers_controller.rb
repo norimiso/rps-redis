@@ -112,7 +112,7 @@ class PowersController < ApplicationController
       score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty])
       if score[:rate].to_f > 0
         score_num += 1
-        rate_sum += score[:rate]
+        rate_sum += score[:rate].to_f
         if score[:rate].to_f > 88.8
           aaa_num += 1
         elsif score[:rate].to_f > 77.7
