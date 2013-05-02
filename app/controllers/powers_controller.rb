@@ -26,11 +26,11 @@ class PowersController < ApplicationController
         score_sym = (playtype.downcase + level.to_s + "score").to_sym
         hash[total_sym] += hash[score_sym]
       end
-      cleartotal_sym = (playtype.downcase + "total").to_sym
+      cleartotal_sym = (playtype.downcase + "cleartotal").to_sym
       hash[cleartotal_sym] = 0
       (11..12).each do |level|
         clear_sym = (playtype.downcase + level.to_s + "clear").to_sym
-        hash[cleartotal_sym] += hash[clear_sym]
+        hash[cleartotal_sym] += hash[clear_sym].to_f
       end
     end
     Power.update(hash)
@@ -122,6 +122,7 @@ class PowersController < ApplicationController
     end
 
     score_rate = rate_sum / score_num if score_num > 0
+    score_rate /= 100
     if 1 > score_rate && score_rate > 0
       pika_great = (score_rate - 0.5) / (1 - score_rate)
       score_power = base * (aaa_num.to_f / score_num + 1) * ((aaa_num + aa_num).to_f / score_num) * pika_great / 2;
