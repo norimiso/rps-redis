@@ -63,7 +63,7 @@ class PowersController < ApplicationController
       exh_num += 1 if score[:clear] == "EH"
       h_num += 1 if score[:clear] == "H"
       if score[:bp] != "-"
-        bp_sum += score[:bp]
+        bp_sum += score[:bp].to_i
         score_num += 1
       end
     end
