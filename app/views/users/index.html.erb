@@ -27,6 +27,9 @@
         <tr>
           <th>IIDX ID</th>
           <th>DJNAME</th>
+          <% (8..12).each do |level| %>
+            <th>☆<%= level %></th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -40,6 +43,14 @@
               <%= user[symbol] %>
             <% end %>
           </td>
+          <% end %>
+
+          <% power = Power.find(iidxid: user[:iidxid]) %>
+          <% (8..12).each do |level| %>
+            <td>
+              <% symbol = (playtype.downcase + level.to_s + "s").to_sym %>
+              <%= power[symbol] %>
+            </td>
           <% end %>
         </tr>
         <% end %>
