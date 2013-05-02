@@ -133,7 +133,7 @@ class PowersController < ApplicationController
     score_rate /= 100
     if 1 > score_rate && score_rate > 0
       pika_great = (score_rate - 0.5) / (1 - score_rate)
-      score_power = base * (aaa_num.to_f / score_num + 1) * ((aaa_num + aa_num).to_f / score_num) * pika_great / 2;
+      score_power = base * (aaa_num.to_f / score_num + 1) * ((aaa_num + aa_num).to_f / score_num) * pika_great;
     else
       score_power = 0
     end
