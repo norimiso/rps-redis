@@ -33,7 +33,7 @@ class ScoresController < ApplicationController
           @musics.each do |music|
             score_hash = Score.where(iidxid: user[:iidxid], title: music[:title], playtype: playtype, difficulty: music[:difficulty])
             score = Score.new(iidxid: user[:iidxid], title: music[:title], playtype: playtype, difficulty: music[:difficulty])
-            score.update_rate(score)
+            score.update_rate(score_hash)
           end
         end
       end
