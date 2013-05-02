@@ -52,7 +52,7 @@ class MusicsController < ApplicationController
 
   # Thanks for TexTage(http://textage.cc/)
   def textage_music_list
-    ignore_ids = ["pinkrose", "2tribe4k", "scripted", "tripping"]
+    ignore_ids = ["pinkrose", "2tribe4k", "scripted", "tripping", "due_tmrw"]
     music_list = Array.new
     script = get("http://textage.cc/score/actbl.js")
     script.each_line do |line|
