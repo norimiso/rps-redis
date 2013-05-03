@@ -82,7 +82,6 @@ class PowersController < ApplicationController
         when 12 then (1.1 + 1/6) - (5**(bp_ave / 100)) / 6
         end
     base_point = (base * (fc_rate + exh_rate + h_rate)**2) * (5**((fc_rate + exh_rate)**2) * 5**(fc_rate**2))
-    raise "score_num:"+score_num.to_s+",fc:"+fc_num.to_s+",level:"+level.to_s+",fc:"+fc_rate.to_s+",exh:"+exh_rate.to_s+",h:"+h_rate.to_s+",base_point:"+base_point.to_s
     base_point**k
   end
 
