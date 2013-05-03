@@ -27,7 +27,7 @@ class Score
 
   def convert_title(title)
     convert_char_list = [
-      # {Before, After}
+      # [Before, After]
       ['&amp;','&']
     ]
     convert_char_list.each do |convert_char|
@@ -35,7 +35,7 @@ class Score
     end
 
     convert_title_list = [
-      # {Before, After}
+      # [Before, After]
       ['Colors(radio edit)', 'Colors (radio edit)'],
       ['恋する☆宇宙戦争っ!!', '恋する☆宇宙戦争っ！！']
     ]
