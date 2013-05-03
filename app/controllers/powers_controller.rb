@@ -46,10 +46,10 @@ class PowersController < ApplicationController
 
   def clear_power(iidxid, playtype, level)
     # 基礎点:30 * (FC+EXH+H)^2 * 5^((FC+EXH)^2) * 5^(FC^2)
-    # 点数:基礎点 ^ (0.75 + 0.5^(0.95+BP/5))
+    # 点数:基礎点 ^ ( (1.1 + 1/6) - (5^(BP/100))/6 ) - lv12
     base = case level
-           when 11 then 30
-           when 12 then 180
+           when 11 then 40
+           when 12 then 250
            end
     fc_num = 0
     fc_rate = 0
@@ -78,8 +78,8 @@ class PowersController < ApplicationController
       h_rate = h_num.to_f / score_num
     end
     k = case level
-        when 11 then 0.75 + 0.5**(0.95 + bp_ave / 5)
-        when 12 then 0.75 + 0.5**(0.9 + bp_ave / 13)
+        when 11 then (1.1 + 1/6) - (1.14**(bp_ave / 2)) / 6
+        when 12 then (1.1 + 1/6) - (5**(bp_ave / 100)) / 6
         end
     base_point = base * (fc_rate + exh_rate + h_rate)**2 * 5**((fc_rate + exh_rate)**2) * 5**(fc_rate**2)
     base_point**k
