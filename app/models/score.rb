@@ -26,12 +26,20 @@ class Score
   end
 
   def convert_title(title)
-    convert_list = [
+    convert_char_list = [
       # {Before, After}
-      ["Colors(radio edit)", "Colors (radio edit)"],
-      ["恋する☆宇宙戦争っ!!", "恋する☆宇宙戦争っ！！"]
+      ['&amp;','&']
     ]
-    convert_list.each do |convert_title|
+    convert_char_list.each do |convert_char|
+      title = title.gsub(convert_char[0], convert_char[1])
+    end
+
+    convert_title_list = [
+      # {Before, After}
+      ['Colors(radio edit)', 'Colors (radio edit)'],
+      ['恋する☆宇宙戦争っ!!', '恋する☆宇宙戦争っ！！']
+    ]
+    convert_title_list.each do |convert_title|
       title = convert_title[1] if title == convert_title[0]
     end
     title
@@ -59,6 +67,7 @@ class Score
                        else 0
                        end
     end
+    hash[:title] = @score.convert_title(hash[:title])
     hash
   end
 end
