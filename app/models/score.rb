@@ -28,8 +28,8 @@ class Score
   def convert_title(title)
     convert_list = [
       # {Before, After}
-      {"Colors(radio edit)", "Colors (radio edit)"},
-      {"恋する☆宇宙戦争っ!!", "恋する☆宇宙戦争っ！！"}
+      ["Colors(radio edit)", "Colors (radio edit)"],
+      ["恋する☆宇宙戦争っ!!", "恋する☆宇宙戦争っ！！"]
     ]
     convert_list.each do |convert_title|
       title = convert_title[1] if title == convert_title[0]
