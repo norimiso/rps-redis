@@ -35,6 +35,7 @@
       </thead>
       <tbody>
         <% @users.each do |user| %>
+        <% next unless user[:iidxid] =~ /[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/%>
         <tr>
           <% [:djname, :iidxid].each do |symbol| %>
           <td>

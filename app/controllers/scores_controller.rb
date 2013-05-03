@@ -21,6 +21,8 @@ class ScoresController < ApplicationController
     end
     @score = Score.new(args)
     @score.update(exscore: params["exscore"], bp: params["bp"], clear: params["clear"])
+    powers_controller = PowersController.new
+    powers_controller.update(args[:iidxid])
     render text: "update succeeded"
   end
 

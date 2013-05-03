@@ -11,7 +11,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    User.create(iidxid: params[:iidxid], djname: params[:djname])
-    render text: "create succeeded"
+    if params[:iidxid] =~ /[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/
+      User.create(iidxid: params[:iidxid], djname: params[:djname])
+      render text: "create succeeded"
+    else
+      render text: "invalid iidxid"
+    end
   end
 end
