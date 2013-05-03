@@ -46,7 +46,7 @@ class PowersController < ApplicationController
 
   def clear_power(iidxid, playtype, level)
     # 基礎点:30 * (FC+EXH+H)^2 * 5^((FC+EXH)^2) * 5^(FC^2)
-    # 点数:基礎点 ^ (0.75 + 0.5^(0.95+BP/5))
+    # 点数:基礎点 ^ ( (1.1 + 1/6) - (5^(BP/100))/6 ) - lv12
     base = case level
            when 11 then 40
            when 12 then 250
