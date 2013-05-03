@@ -18,6 +18,14 @@ class MusicsController < ApplicationController
     render text: "update succeeded"
   end
 
+  def delete_all
+    ["SP", "DP"].each do |playtype|
+      (1..12).each do |level|
+        musics = Music.where(playtype: playtype, level: level)
+      end
+    end
+  end
+
   def update_music_data
     music_list = textage_music_list
     music_list.each do |music|
@@ -52,7 +60,7 @@ class MusicsController < ApplicationController
 
   # Thanks for TexTage(http://textage.cc/)
   def textage_music_list
-    ignore_ids = ["pinkrose", "2tribe4k", "scripted", "tripping", "due_tmrw"]
+    ignore_ids = ["pinkrose", "2tribe4k", "scripted", "tripping", "due_tmrw", "rockit", "_59_2nd", "g_knight"]
     music_list = Array.new
     script = get("http://textage.cc/score/actbl.js")
     script.each_line do |line|
