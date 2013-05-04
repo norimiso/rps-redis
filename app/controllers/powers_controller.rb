@@ -78,10 +78,11 @@ class PowersController < ApplicationController
       h_rate = h_num.to_f / score_num
     end
     k = case level
-        when 11 then (1.1 + 1/6) - (1.14**(bp_ave / 2)) / 6
-        when 12 then (1.1 + 1/6) - (5**(bp_ave / 100)) / 6
+        when 11 then (1.1 + 1.0/6) - ((1.14**(bp_ave / 2)) / 6)
+        when 12 then (1.1 + 1.0/6) - ((5**(bp_ave / 100)) / 6)
         end
     base_point = base * (fc_rate + exh_rate + h_rate)**2 * 5**((fc_rate + exh_rate)**2) * 5**(fc_rate**2)
+    raise base_point.to_s
     base_point**k
   end
 
