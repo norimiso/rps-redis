@@ -59,13 +59,15 @@ class PowersController < ApplicationController
     h_rate = 0
     bp_sum = 0
     score_num = 0
+    lamp_num = 0
     bp_ave = 0
     Music.where(playtype: playtype, level: level.to_s).each do |music|
       score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty])
+      fc_num += 1 if score[:clear] == "FC"
+      exh_num += 1 if score[:clear] == "EH"
+      h_num += 1 if score[:clear] == "H"
+      lamp_num += 1
       if score[:bp] != "-"
-        fc_num += 1 if score[:clear] == "FC"
-        exh_num += 1 if score[:clear] == "EH"
-        h_num += 1 if score[:clear] == "H"
         bp_sum += score[:bp].to_i
         score_num += 1
       end
@@ -73,9 +75,9 @@ class PowersController < ApplicationController
 
     if score_num > 0
       bp_ave = bp_sum.to_f / score_num
-      fc_rate = fc_num.to_f / score_num
-      exh_rate = exh_num.to_f / score_num
-      h_rate = h_num.to_f / score_num
+      fc_rate = fc_num.to_f / lamp_num
+      exh_rate = exh_num.to_f / lamp_num
+      h_rate = h_num.to_f / lamp_num
     end
     k = case level
         when 11 then (1.1 + 1.0/6) - ((1.14**(bp_ave / 2)) / 6)
