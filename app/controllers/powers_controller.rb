@@ -73,8 +73,8 @@ class PowersController < ApplicationController
       end
     end
 
-    if score_num > 0
-      bp_ave = bp_sum.to_f / score_num
+    bp_ave = bp_sum.to_f / score_num if score_num > 0
+    if lamp_num > 0
       fc_rate = fc_num.to_f / lamp_num
       exh_rate = exh_num.to_f / lamp_num
       h_rate = h_num.to_f / lamp_num
@@ -84,11 +84,23 @@ class PowersController < ApplicationController
         when 12 then (1.1 + 1.0/6) - ((5**(bp_ave / 100)) / 6)
         end
     base_point = base * (fc_rate + exh_rate + h_rate)**2 * 5**((fc_rate + exh_rate)**2) * 5**(fc_rate**2)
-    if base_point != 0
-      base_point**k
+    if base_point > 0
+      clear_power = base_point**k
     else
-      0
+      clear_power = 0
     end
+
+    # catch underflow
+    if clear_power.to_i > 100000
+      clear_power = 0
+    end
+
+    # For debug
+    # raise "IIDXID:"+iidxid+",SCORE_NUM:"+score_num.to_s+",LAMP_NUM:"+lamp_num.to_s+",FC_NUM:"+fc_num.to_s+
+    #   ",EXH_NUM:"+exh_num.to_s+",H_NUM:"+h_num.to_s+",FC_RATE:"+fc_rate.to_s+",EXH_RATE:"+exh_rate.to_s+",H_RATE:"+h_rate.to_s+
+    #   ",BP_AVE:"+bp_ave.to_s+",BASE_POINT:"+base_point.to_s+",K:"+k.to_s+",CLEAR_POWER:"+(clear_power).to_s
+
+    clear_power
   end
 
   def single_score_power(iidxid, playtype, level)
