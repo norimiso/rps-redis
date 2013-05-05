@@ -66,7 +66,7 @@ class PowersController < ApplicationController
       fc_num += 1 if score[:clear] == "FC"
       exh_num += 1 if score[:clear] == "EH"
       h_num += 1 if score[:clear] == "H"
-      lamp_num += 1
+      lamp_num += 1 if score[:clear] != "-"
       if score[:bp] != "-"
         bp_sum += score[:bp].to_i
         score_num += 1
