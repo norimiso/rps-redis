@@ -29,6 +29,7 @@ class Score
     convert_char_list = [
       # [Before, After]
       ['&amp;','&']
+      ['&ecirc;','ê']
     ]
     convert_char_list.each do |convert_char|
       title = title.gsub(convert_char[0], convert_char[1])
